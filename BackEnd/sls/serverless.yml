@@ -1,0 +1,170 @@
+service: hackathon1
+
+provider:
+  name: aws
+  runtime: java8
+  dynamodb-arn-table: ${opt:dynamodb-arn-table, , ''}
+  package-name: ${opt:package-name, ''}
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: ${self:provider.dynamodb-arn-table}/*
+ 
+package:
+  artifact: ${self:provider.package-name}
+
+
+custom:
+
+    warmup:
+       enabled: true # Whether to warm up functions by default or not
+       folderName: 'function' # Name of the folder created for the generated warmup
+       cleanFolder: true
+       name: 'Test'
+       events:
+         - schedule: 'rate(15 minutes)'
+       package:
+         individually: true
+       payload: {"warmer":true}
+       prewarm: true # Run WarmUp immediately after a deploymentlambda
+       concurrency: 3 # Warm up 5 concurrent instances
+
+    allowed-headers:
+      - Content-Type
+      - X-Amz-Date
+      - X-App-Version
+      - Accept-Language
+      - User-Agent
+      - source_type
+
+functions:            
+  GetAllModules:
+    handler: com.clarion.hackathon.backend.function.AwsLAmbdaGetModules
+
+    events:
+     - http:
+        path: modules
+        method: get
+        cors:
+          origin: "*"
+        integration: lambda
+        response:
+          statusCodes:
+              200:
+                pattern: ''
+                template:
+                  application/json: ''
+        documentation:
+            description: >
+              Return all Modules
+            methodResponses:
+            - statusCode: '200'
+              responseModels:
+                "application/json": "EmptyModel"
+  GetAllScope:
+    handler: com.clarion.hackathon.backend.function.AwsLambdaGetScope
+    events:
+     - http:
+        path: scope
+        method: get
+        cors:
+          origin: "*"
+        integration: lambda
+        response:
+          statusCodes:
+              200:
+                pattern: ''
+                template:
+                  application/json: ''
+        documentation:
+            description: >
+              Return all Modules
+            methodResponses:
+            - statusCode: '200'
+              responseModels:
+                "application/json": "EmptyModel"
+  PostRecommendation:
+    handler: com.clarion.hackathon.backend.function.AwsLambdaPostRecommendation
+    warmup:
+      enabled: true
+    events:
+     - http:
+        path: recommendation
+        method: post
+        cors:
+          origin: "*"
+          headers: ${self:custom.allowed-headers}
+          allowCredentials: true
+        integration: lambda
+        request:
+          template:
+            application/json: ${file(./mapping-templates/recommendation.json.txt)}
+        response:
+          statusCodes:
+              200:
+                pattern: ''
+                template:
+                  application/json: ''
+        documentation:
+            description: >
+              Post SuggestionBox data
+            methodResponses:
+            - statusCode: '200'
+              responseModels:
+                "application/json": "EmptyModel" 
+  GetRecommendation:
+    handler: com.clarion.hackathon.backend.function.AwsLambdaGetRecommendation
+    warmup:
+      enabled: true
+    events:
+     - http:
+        path: recommendation
+        method: get
+        cors:
+          origin: "*"
+          headers: ${self:custom.allowed-headers}
+          allowCredentials: true
+        integration: lambda
+        response:
+          statusCodes:
+              200:
+                pattern: ''
+                template:
+                  application/json: ''
+        documentation:
+            description: >
+              Post SuggestionBox data
+            methodResponses:
+            - statusCode: '200'
+              responseModels:
+                "application/json": "EmptyModel" 
+  # Outputs:
+  #   NewOutput:
+  #     Description: "Package Name used."
+  #     Value: builds/${opt:package-name}
+
+resources:
+  Resources:
+    GatewayResponse401Unauthorized:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.WWW-Authenticate: "'Basic'"
+        ResponseType: UNAUTHORIZED
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '401'
+    GatewayResponseThrottled:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseType: THROTTLED
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+        StatusCode: '429'

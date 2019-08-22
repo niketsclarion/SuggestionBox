@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "888be999-d988-47fb-b9f0-d8587c191a77",
+		"name": "Hack-a-Thon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Scope",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": ""
+				},
+				"description": "Get Scope Content "
+			},
+			"response": []
+		},
+		{
+			"name": "Modules",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5401cb8b-289a-4857-9e73-6942c605f1fb",
+						"exec": [
+							"pm.test(\"Response time is less than 1300ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1300);",
+							"});",
+							"",
+							"pm.test(\"Array Size is Greate than 0\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var size = Object.size(jsonData);",
+							"    pm.expect(size).to.gt(0);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"String Contain module_name\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"module_name\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2c920c0e-42bb-4872-9589-99c99b7fe289",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/modules",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"modules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{api}}/recommendation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0006de21-ca86-4e68-9351-80d4beecd533",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Body containts status\"] = responseBody.has(\"status\");",
+							"tests[\"Body containts meessage\"] = responseBody.has(\"meessage\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"recommendation\": \"recom1\",\n  \"module\": \"module\",\n  \"scope\": \"scope\",\n  \"userName\": \"user1\",\n  \"tanentName\": \"ttt\",\n  \"recommendationTitle\": \"recommendationTitle\",\n  \"recommendationDetails\": \"recommendationDetails\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/recommendation",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"recommendation"
+					]
+				},
+				"description": "valid data and Valid Response"
+			},
+			"response": []
+		},
+		{
+			"name": "{{api}}/recommendation without tenantId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0006de21-ca86-4e68-9351-80d4beecd533",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Body containts status\"] = responseBody.has(\"status\");",
+							"",
+							"pm.test(\"Status Field Should be Fail\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"Fail\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"recommendation\": \"recom1\",\n  \"module\": \"module\",\n  \"scope\": \"scope\",\n  \"userName\": \"user1\",\n  \"tanentName\": \"\",\n  \"recommendationTitle\": \"recommendationTitle\",\n  \"recommendationDetails\": \"recommendationDetails\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/recommendation",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"recommendation"
+					]
+				},
+				"description": "Validate without tenantId"
+			},
+			"response": []
+		},
+		{
+			"name": "recommendation with tenantname and username is null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37f27d7f-8947-42a4-b047-d45bef3bb14f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Body containts status\"] = responseBody.has(\"status\");",
+							"pm.test(\"Status Field Should be Fail\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"Fail\");",
+							"});",
+							"",
+							"tests[\"Body containts meessage\"] = responseBody.has(\"meessage\");",
+							"pm.test(\"validate Message and check tenant cannot be blank \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.meessage).to.contain(\"Tanent Cannot be Blank\");",
+							"});",
+							"",
+							"pm.test(\"validate Message and check User cannot be blank \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.meessage).to.contain(\"User Cannot be Blank\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"recommendation\": \"recom1\",\n  \"module\": \"module\",\n  \"scope\": \"scope\",\n  \"recommendationTitle\": \"recommendationTitle\",\n  \"recommendationDetails\": \"recommendationDetails\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/recommendation",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"recommendation"
+					]
+				},
+				"description": "It will check when tenantname and username is null"
+			},
+			"response": []
+		},
+		{
+			"name": "recommendation with module is not availalbe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37f27d7f-8947-42a4-b047-d45bef3bb14f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Body containts status\"] = responseBody.has(\"status\");",
+							"pm.test(\"Status Field Should be Fail\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"Fail\");",
+							"});",
+							"",
+							"tests[\"Body containts meessage\"] = responseBody.has(\"meessage\");",
+							"pm.test(\"validate Message and check tenant cannot be blank \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.meessage).to.contain(\"Module Cannot be Blank\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"recommendation\": \"recom1\",\n  \"scope\": \"scope\",\n  \"userName\": \"user1\",\n  \"tanentName\": \"sdfsd\",\n  \"recommendationTitle\": \"recommendationTitle\",\n  \"recommendationDetails\": \"recommendationDetails\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/recommendation",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"recommendation"
+					]
+				},
+				"description": "It will check when module is not avaliable "
+			},
+			"response": []
+		}
+	]
+}
