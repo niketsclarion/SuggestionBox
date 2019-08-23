@@ -226,7 +226,7 @@
 							"});",
 							"",
 							"",
-							"tests[\"Response time is acceptable\"] = responseTime < 1200;"
+							"tests[\"Response time is acceptable\"] = responseTime < 2000;"
 						],
 						"type": "text/javascript"
 					}
@@ -301,7 +301,7 @@
 							"});",
 							"",
 							"",
-							"tests[\"Response time is acceptable\"] = responseTime < 1200;"
+							"tests[\"Response time is acceptable 2000\"] = responseTime < 2000;"
 						],
 						"type": "text/javascript"
 					}
@@ -381,7 +381,7 @@
 							"});",
 							"",
 							"",
-							"tests[\"Response time is acceptable\"] = responseTime < 1200;"
+							"tests[\"Response time is acceptable 2000 \"] = responseTime < 2000;"
 						],
 						"type": "text/javascript"
 					}
@@ -457,7 +457,7 @@
 							"});",
 							"",
 							"",
-							"tests[\"Response time is acceptable\"] = responseTime < 1200;"
+							"tests[\"Response time is acceptable 2000\"] = responseTime < 2000;"
 						],
 						"type": "text/javascript"
 					}
@@ -531,7 +531,7 @@
 							"});",
 							"",
 							"",
-							"tests[\"Response time is acceptable\"] = responseTime < 20;"
+							"tests[\"Response time is acceptable 2000\"] = responseTime < 20;"
 						],
 						"type": "text/javascript"
 					}
