@@ -531,7 +531,7 @@
 							"});",
 							"",
 							"",
-							"tests[\"Response time is acceptable\"] = responseTime < 2000;"
+							"tests[\"Response time is acceptable\"] = responseTime < 20;"
 						],
 						"type": "text/javascript"
 					}
