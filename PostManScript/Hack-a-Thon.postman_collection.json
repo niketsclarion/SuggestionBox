@@ -489,6 +489,72 @@
 				"description": "It will check when module is not avaliable "
 			},
 			"response": []
+		},
+		{
+			"name": "Get recommendation test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0e3f93e8-2923-4730-ae95-cee82e654e51",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"/*Body should have Content-Type*/",
+							"pm.test(\"Content-Type is present\", function () {",
+							"pm.response.to.have.header(\"Content-Type\")===\"application/json\";",
+							"});",
+							"",
+							"tests[\"JSON ARRAY is NOT EMPTY\"] = (responseBody.length >=0);",
+							"",
+							"/*Body should have status & meessage*/",
+							"pm.test(\"Body should have recommendation & scope\", function () {",
+							"pm.expect(pm.response.text()).to.include(\"recommendation\");",
+							"pm.expect(pm.response.text()).to.include(\"module\");",
+							"pm.expect(pm.response.text()).to.include(\"scope\");",
+							"pm.expect(pm.response.text()).to.include(\"recommendationTitle\");",
+							"pm.expect(pm.response.text()).to.include(\"recommendationDetails\");",
+							"pm.expect(pm.response.text()).to.include(\"created_date\");",
+							"",
+							"});",
+							"/*meessage can not be empty or null*/",
+							"pm.test(\"recommendationTitle can not be empty or null\", function() {",
+							"var jsonData = pm.response.json();",
+							"pm.expect(jsonData.recommendationTitle).not.eql(null);",
+							"pm.expect(jsonData.recommendationTitle).not.eq(!undefined);",
+							"",
+							"});",
+							"",
+							"",
+							"tests[\"Response time is acceptable\"] = responseTime < 2000;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/recommendation",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"recommendation"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
