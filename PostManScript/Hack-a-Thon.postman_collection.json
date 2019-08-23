@@ -280,7 +280,7 @@
 							"tests[\"Body containts meessage\"] = responseBody.has(\"meessage\");",
 							"pm.test(\"validate Message Test \", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.meessage).to.eql(\"Tanent Cannot be Blank\");",
+							"    pm.expect(jsonData.meessage).to.contain(\"Tanent Cannot be Blank\");",
 							"});",
 							"",
 							"",
