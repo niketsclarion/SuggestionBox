@@ -1,0 +1,494 @@
+{
+	"info": {
+		"_postman_id": "888be999-d988-47fb-b9f0-d8587c191a77",
+		"name": "Hack-a-Thon",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Scope",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "99281292-af45-458a-80da-e96eefcc10fb",
+						"exec": [
+							"pm.test(\"Response time is less than 1300ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1300);",
+							"});",
+							"",
+							"pm.test(\"It Contain Object Search Key\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0].objectSearchKey).to.eql(\"scope\");",
+							"});",
+							"",
+							"pm.test(\"Array Size is Greate than 0\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var size = Object.size(jsonData);",
+							"    pm.expect(size).to.gt(0);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Predefined Scope\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Other\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"New feature\");",
+							"});",
+							"",
+							"",
+							"",
+							"/*Body should have Content-Type*/",
+							"pm.test(\"Content-Type is present\", function () {",
+							"pm.response.to.have.header(\"Content-Type\")===\"application/json\";",
+							"});",
+							"",
+							"tests[\"JSON ARRAY is NOT EMPTY\"] = (responseBody.length >=0);",
+							"",
+							"",
+							"/*meessage can not be empty or null*/",
+							"pm.test(\"meessage can not be empty or null\", function() {",
+							"var jsonData = pm.response.json();",
+							"pm.expect(jsonData).not.eql(null);",
+							"pm.expect(jsonData).not.eq(undefined);",
+							"",
+							"});",
+							"",
+							"",
+							"tests[\"Response time is acceptable\"] = responseTime < 1200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/scope",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"scope"
+					]
+				},
+				"description": "Get Scope Content "
+			},
+			"response": []
+		},
+		{
+			"name": "Modules",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5401cb8b-289a-4857-9e73-6942c605f1fb",
+						"exec": [
+							"pm.test(\"Response time is less than 1300ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1300);",
+							"});",
+							"",
+							"pm.test(\"Array Size is Greate than 0\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var size = Object.size(jsonData);",
+							"    pm.expect(size).to.gt(0);",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"String Contain Attendance\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Attendance\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string Tracking\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Tracking\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string Tracking\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Other\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string Intake\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Intake\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Body matches string Group Session\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Group Session\");",
+							"});",
+							"",
+							"",
+							"/*Body should have Content-Type*/",
+							"pm.test(\"Content-Type is present\", function () {",
+							"pm.response.to.have.header(\"Content-Type\")===\"application/json\";",
+							"});",
+							"",
+							"tests[\"JSON ARRAY is NOT EMPTY\"] = (responseBody.length >=0);",
+							"",
+							"",
+							"/*meessage can not be empty or null*/",
+							"pm.test(\"meessage can not be empty or null\", function() {",
+							"var jsonData = pm.response.json();",
+							"pm.expect(jsonData).not.eql(null);",
+							"pm.expect(jsonData).not.eq(undefined);",
+							"",
+							"});",
+							"",
+							"",
+							"tests[\"Response time is acceptable\"] = responseTime < 1200;",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2c920c0e-42bb-4872-9589-99c99b7fe289",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{api}}/modules",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"modules"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{api}}/recommendation",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0006de21-ca86-4e68-9351-80d4beecd533",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Body containts status\"] = responseBody.has(\"status\");",
+							"tests[\"Body containts meessage\"] = responseBody.has(\"meessage\");",
+							"",
+							"",
+							"/*Body should have Content-Type*/",
+							"pm.test(\"Content-Type is present\", function () {",
+							"pm.response.to.have.header(\"Content-Type\")===\"application/json\";",
+							"});",
+							"",
+							"tests[\"JSON ARRAY is NOT EMPTY\"] = (responseBody.length >=0);",
+							"",
+							"/*Body should have status & meessage*/",
+							"pm.test(\"Body should have status & meessage\", function () {",
+							"pm.expect(pm.response.text()).to.include(\"status\");",
+							"pm.expect(pm.response.text()).to.include(\"meessage\");",
+							"});",
+							"/*meessage can not be empty or null*/",
+							"pm.test(\"meessage can not be empty or null\", function() {",
+							"var jsonData = pm.response.json();",
+							"pm.expect(jsonData.meessage).not.eql(null);",
+							"pm.expect(jsonData.meessage).not.eq(undefined);",
+							"",
+							"});",
+							"",
+							"",
+							"tests[\"Response time is acceptable\"] = responseTime < 1200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"recommendation\": \"recom1\",\n  \"module\": \"module\",\n  \"scope\": \"scope\",\n  \"userName\": \"user1\",\n  \"tanentName\": \"ttt\",\n  \"recommendationTitle\": \"recommendationTitle\",\n  \"recommendationDetails\": \"recommendationDetails\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/recommendation",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"recommendation"
+					]
+				},
+				"description": "valid data and Valid Response"
+			},
+			"response": []
+		},
+		{
+			"name": "{{api}}/recommendation without tenantId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ff464bda-1f7a-4a6e-a593-bea3a0169895",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Body containts status\"] = responseBody.has(\"status\");",
+							"pm.test(\"Status Field Should be Fail\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"Fail\");",
+							"});",
+							"",
+							"tests[\"Body containts meessage\"] = responseBody.has(\"meessage\");",
+							"pm.test(\"validate Message Test \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.meessage).to.eql(\"Tanent Cannot be Blank\");",
+							"});",
+							"",
+							"",
+							"/*Body should have Content-Type*/",
+							"pm.test(\"Content-Type is present\", function () {",
+							"pm.response.to.have.header(\"Content-Type\")===\"application/json\";",
+							"});",
+							"",
+							"tests[\"JSON ARRAY is NOT EMPTY\"] = (responseBody.length >=0);",
+							"",
+							"",
+							"/*meessage can not be empty or null*/",
+							"pm.test(\"meessage can not be empty or null\", function() {",
+							"var jsonData = pm.response.json();",
+							"pm.expect(jsonData).not.eql(null);",
+							"pm.expect(jsonData).not.eq(undefined);",
+							"",
+							"});",
+							"",
+							"",
+							"tests[\"Response time is acceptable\"] = responseTime < 1200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"recommendation\": \"recom1\",\n  \"module\": \"module\",\n  \"scope\": \"scope\",\n  \"userName\": \"user1\",\n  \"tanentName\": \"\",\n  \"recommendationTitle\": \"recommendationTitle\",\n  \"recommendationDetails\": \"recommendationDetails\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/recommendation",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"recommendation"
+					]
+				},
+				"description": "Validate without tenantId"
+			},
+			"response": []
+		},
+		{
+			"name": "recommendation with tenantname and username is null",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37f27d7f-8947-42a4-b047-d45bef3bb14f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Body containts status\"] = responseBody.has(\"status\");",
+							"pm.test(\"Status Field Should be Fail\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"Fail\");",
+							"});",
+							"",
+							"tests[\"Body containts meessage\"] = responseBody.has(\"meessage\");",
+							"pm.test(\"validate Message and check tenant cannot be blank \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.meessage).to.contain(\"Tanent Cannot be Blank\");",
+							"});",
+							"",
+							"pm.test(\"validate Message and check User cannot be blank \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.meessage).to.contain(\"User Cannot be Blank\");",
+							"});",
+							"",
+							"",
+							"/*Body should have Content-Type*/",
+							"pm.test(\"Content-Type is present\", function () {",
+							"pm.response.to.have.header(\"Content-Type\")===\"application/json\";",
+							"});",
+							"",
+							"tests[\"JSON ARRAY is NOT EMPTY\"] = (responseBody.length >=0);",
+							"",
+							"",
+							"/*meessage can not be empty or null*/",
+							"pm.test(\"meessage can not be empty or null\", function() {",
+							"var jsonData = pm.response.json();",
+							"pm.expect(jsonData).not.eql(null);",
+							"pm.expect(jsonData).not.eq(undefined);",
+							"",
+							"});",
+							"",
+							"",
+							"tests[\"Response time is acceptable\"] = responseTime < 1200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"recommendation\": \"recom1\",\n  \"module\": \"module\",\n  \"scope\": \"scope\",\n  \n  \"recommendationTitle\": \"recommendationTitle\",\n  \"recommendationDetails\": \"recommendationDetails\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/recommendation",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"recommendation"
+					]
+				},
+				"description": "It will check when tenantname and username is null"
+			},
+			"response": []
+		},
+		{
+			"name": "recommendation with module is not availalbe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "37f27d7f-8947-42a4-b047-d45bef3bb14f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tests[\"Body containts status\"] = responseBody.has(\"status\");",
+							"pm.test(\"Status Field Should be Fail\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.status).to.eql(\"Fail\");",
+							"});",
+							"",
+							"tests[\"Body containts meessage\"] = responseBody.has(\"meessage\");",
+							"pm.test(\"validate Message and check tenant cannot be blank \", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.meessage).to.contain(\"Module Cannot be Blank\");",
+							"});",
+							"",
+							"",
+							"",
+							"/*Body should have Content-Type*/",
+							"pm.test(\"Content-Type is present\", function () {",
+							"pm.response.to.have.header(\"Content-Type\")===\"application/json\";",
+							"});",
+							"",
+							"tests[\"JSON ARRAY is NOT EMPTY\"] = (responseBody.length >=0);",
+							"",
+							"",
+							"/*meessage can not be empty or null*/",
+							"pm.test(\"meessage can not be empty or null\", function() {",
+							"var jsonData = pm.response.json();",
+							"pm.expect(jsonData).not.eql(null);",
+							"pm.expect(jsonData).not.eq(undefined);",
+							"",
+							"});",
+							"",
+							"",
+							"tests[\"Response time is acceptable\"] = responseTime < 1200;"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"recommendation\": \"recom1\",\n  \"scope\": \"scope\",\n  \"userName\": \"user1\",\n  \"tanentName\": \"sdfsd\",\n  \"recommendationTitle\": \"recommendationTitle\",\n  \"recommendationDetails\": \"recommendationDetails\"\n}"
+				},
+				"url": {
+					"raw": "{{api}}/recommendation",
+					"host": [
+						"{{api}}"
+					],
+					"path": [
+						"recommendation"
+					]
+				},
+				"description": "It will check when module is not avaliable "
+			},
+			"response": []
+		}
+	]
+}
