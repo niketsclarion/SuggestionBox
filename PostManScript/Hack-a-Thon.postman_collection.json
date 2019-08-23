@@ -14,7 +14,7 @@
 						"id": "99281292-af45-458a-80da-e96eefcc10fb",
 						"exec": [
 							"pm.test(\"Response time is less than 1300ms\", function () {",
-							"    pm.expect(pm.response.responseTime).to.be.below(1300);",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
 							"});",
 							"",
 							"pm.test(\"It Contain Object Search Key\", function () {",
